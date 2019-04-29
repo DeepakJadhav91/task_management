@@ -1,0 +1,52 @@
+<div *ngIf="isLoggedUser" style="margin-left: 5%">
+  <button class="btn btn-primary" (click)="navigatePage('addTask')">Add Task</button>
+</div>
+<div style="margin:50px;">
+  <div class="alert alert-info"><b>Task Details</b></div>
+  <div class="table-responsive">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>S.No</th>
+          <th>Title</th>
+          <th>Details</th>
+          <th>Due Date</th>
+          <th>Completed Date & Time</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody *ngIf="(task | json) != ({} | json)">
+        <tr *ngFor="let task of tasks; let i = index;">
+          <td>
+            <span>{{i+1}}</span>
+          </td>
+          <td>
+            <span *ngIf="!editFlag">{{task.title}}</span>
+            <span *ngIf="editFlag"><input type="text" value="{{task.title}}"></span>
+          </td>
+          <td>
+            <span *ngIf="!editFlag">{{task.details}}</span>
+            <span *ngIf="editFlag"><input type="text" value="{{task.details}}"></span>
+          </td>
+          <td>
+            <span *ngIf="!editFlag">{{task.dueDate}}</span>
+            <span *ngIf="editFlag"><input type="text" value="{{task.dueDate}}"></span>
+          </td>
+          <td>
+            <span *ngIf="!editFlag">{{task.completedDate}}</span>
+            <span *ngIf="editFlag"><input type="text" value="{{task.completedDate}}"></span>
+          </td>
+          <td>
+            <a href="javascript:void(0)" *ngIf="!editFlag"(click)="editTask(i+1)">Edit</a>
+            <a href="javascript:void(0)" *ngIf="editFlag" (click)="updateTask(i+1,task)">Update</a>
+          </td>
+        </tr>
+      </tbody>
+      <tbody *ngIf="!tasks">
+          <tr>
+              <td colspan="6">No Tasks Found</td>
+          </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
